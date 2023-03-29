@@ -1,0 +1,1 @@
+<!-- The card show information about the different things -->
