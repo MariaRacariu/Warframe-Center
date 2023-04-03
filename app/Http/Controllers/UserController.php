@@ -17,6 +17,7 @@ class UserController extends Controller
     public function store(Request $request){
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
+            'mastery_rank' => ['required', 'numeric', 'min:0', 'max:99'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' =>['required','confirmed', 'min:6'],
         ]);

@@ -1,0 +1,53 @@
+.dashboard-container{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    row-gap: 50px;
+}
+
+.item_title{
+    text-decoration: underline;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.item-container{
+    max-width: 600px;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+   
+}
+
+.components-image{
+   height: 90px;
+   width: auto;
+}
+
+.components-container{
+    max-width: 100px;
+}
+
+.form-container{
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.acquired{
+    background-color: rgb(98, 172, 98);
+}
+.item-acquired{
+    background-color: rgb(49, 80, 49);
+}
+
+
+.favorite_button{
+    margin-bottom: 10px;
+}
+
+.buttons_container{
+    position: absolute;
+    padding-left: 20px;
+    padding-top: 20px;
+    text-align: left;
+}
+

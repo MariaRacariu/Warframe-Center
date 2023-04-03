@@ -1,0 +1,17 @@
+body{
+    background-color: #2d2d2d;
+}
+
+*{
+    font-family: sans-serif;
+    color: white;
+}
+
+button, input[type="button"], input[type="submit"]{
+    background-color: #2d2d2d;
+}
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover{
+    background-color: #434343;
+    cursor: pointer;
+}

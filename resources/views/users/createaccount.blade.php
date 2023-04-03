@@ -16,6 +16,13 @@
     <p style="color:red;">{{$message}}</p>
     @enderror
     <div>
+        <label for="mastery_rank">Mastery Rank:</label>
+        <input type="number" name="mastery_rank">
+    </div>
+    @error('mastery_rank')
+    <p style="color:red;">{{$message}}</p>
+    @enderror
+    <div>
         <label for="email">Email</label>
         <input type="email" name="email" value="{{old('email')}}">
     </div>
