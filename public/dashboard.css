@@ -4,18 +4,22 @@
     row-gap: 50px;
 }
 
-.item_title{
-    text-decoration: underline;
+.item_title a{
     font-size: 20px;
     font-weight: 600;
     letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.item_title a:hover{
+    text-decoration: underline;
 }
 
 .item-container{
     max-width: 600px;
     grid-template-rows: auto auto auto;
     text-align: center;
-   
+    background-color: #252529;
 }
 
 .components-image{
@@ -39,6 +43,12 @@
     background-color: rgb(49, 80, 49);
 }
 
+.mastery-rank-container{
+    position: relative;
+    margin-left: 450px;
+    top: -40px;
+    text-align: left;
+}
 
 .favorite_button{
     margin-bottom: 10px;
@@ -47,7 +57,6 @@
 .buttons_container{
     position: absolute;
     padding-left: 20px;
-    padding-top: 20px;
+    padding-top: 19px;
     text-align: left;
 }
-

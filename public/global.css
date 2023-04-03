@@ -2,6 +2,10 @@ body{
     background-color: #2d2d2d;
 }
 
+.danger{
+    color: #F14B40 !important;
+}
+
 *{
     font-family: sans-serif;
     color: white;
@@ -14,4 +18,26 @@ button, input[type="button"], input[type="submit"]{
 button:hover, input[type="button"]:hover, input[type="submit"]:hover{
     background-color: #434343;
     cursor: pointer;
+}
+
+.primary-button a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.primary-button{
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 30px;
+    padding: 15px 30px 15px 30px;
+}
+
+.primary-button:hover{
+    background-color: #2d2d2d;
+}
+
+.primary-button a:hover{
+    text-decoration: underline;
 }

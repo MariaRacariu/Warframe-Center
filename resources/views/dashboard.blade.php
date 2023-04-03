@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     
+    <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="navbar-style.css">
-    <link rel="stylesheet" href="global.css">
 </head>
 <body>
     <x-navbar-auth/> <!-- add navbar -->
+    <h1 style="padding-top:10px;"><span>{{auth()->user()->name}}'s Mastery Rank: {{auth()->user()->mastery_rank}}</span></h1>
     <br>
     <div>
-        <h1><span>{{auth()->user()->name}}'s List</span></h1>
         <div class="dashboard-container">
             <?php  
             $foreach_count = 0;
@@ -24,31 +24,38 @@
 
                 $components_count = count($components[$foreach_count]);
                 $running_count = 0;
-                $item_class = "";
+                $acquired_status = "";
                 for($i=0; $i < $components_count; $i++){
                     if($components[$foreach_count][$i]->acquired == 1){
                         $running_count++;
                     }
                 }
                 if ($running_count == $components_count){
-                    $item_class = "item-acquired";
+                    $acquired_status = "item-acquired";
                 }
                 ?>
-                <div class="item-container {{ $item_class }}">
+                <div class="item-container {{ $acquired_status }}">
                     <?php
                     $favorite_name = $obj->name; //Get item name from array
-                    $favorites_id = $obj->favorites_id;
                     $favorite_filename = str_replace(' ', '-', strtolower($favorite_name)); //format name for filename 
+                    $favorite_type = strtolower($obj->type); //used for url navigation on single item
+
+                    $mastery_rank_class = "";
+                    if($obj->mastery_rank > auth()->user()->mastery_rank){
+                        $mastery_rank_class = "danger";
+                    }
                     ?>
                     <!-- Delete will delete it from the database favorites and also components -->
                     <div class="buttons_container">
                         <form method="POST" action="{{ route('favorites.destroy') }}">
                             @csrf
-                            <input type="hidden" name="favorites_id" value="{{$favorites_id}}">
+                            <input type="hidden" name="favorites_id" value="{{$obj->favorites_id}}">
                             <input type="submit" value="Delete" class="favorite_button"></input>
                         </form>
                     </div>
-                    <h3 class="item_title">{{$favorite_name}}</h3>
+                    <h3 class="item_title"><a href="/{{$favorite_type}}/{{$favorite_name}}?type={{$obj->type}}">{{$favorite_name}}</a></h3>
+                    <!-- mastery rank requirement -->
+                    <div class="mastery-rank-container"><p class="{{$mastery_rank_class}}">Mastery Rank: {{$obj->mastery_rank}}</p></div>
                     <!-- Show image of Item -->
                     <img src="https://cdn.warframestat.us/img/{{$favorite_filename}}.png" alt=""> 
                     <!-- For each component get name, amount and image -->

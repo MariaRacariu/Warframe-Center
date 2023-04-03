@@ -34,9 +34,8 @@
     </div>
 
 <div class="container">
-    <img src="{{ asset('images/warframe-hero-image.jpg') }}" alt="" class="front-page-hero-image">
     <div class="hero-text">
-        <h1 class="hero-image-text">Create your <br> own Warframe <br>journey</h1>
+        <h1 class="hero-image-text">Create your <br> own Warframe <br>journey.</h1>
         <button class="primary-button hero-image-button"><a href="/createaccount">Sign Up</a></button>
     </div>
 </div>

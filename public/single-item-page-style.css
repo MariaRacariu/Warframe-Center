@@ -1,0 +1,45 @@
+body{
+    margin: 25px;
+}
+.single-item-container{
+    display: grid;
+    grid-template-columns: 1300px auto;
+    grid-template-rows: 100px 600px 300px 300px;
+    grid-template-areas:
+    " .           ."
+    "intro      drops"
+    "info       drops"
+    "abilities  drops";
+}
+
+.intro-section{
+    grid-area: intro;
+}
+
+.item-information{
+    grid-area: info;
+    font-size:18px;
+}
+
+.item-abilities{
+    grid-area: abilities;
+    font-size:18px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    margin: 20px 20px 0px 0px;
+}
+
+.drops-table{
+    grid-area: drops;
+    max-height: 20px;
+}
+
+.drops-table tr th, tr td{
+    border: 1px solid white;
+    padding: 5px;
+}
+
+.abilities-container{
+    border: 1px solid white;
+    padding: 5px 10px 5px 10px;
+}

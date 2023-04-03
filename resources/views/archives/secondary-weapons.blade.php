@@ -13,14 +13,13 @@ $components_array = json_decode(json_encode($components_array),true); //decode t
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secondary Weapons</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="archives-style.css">
     <link rel="stylesheet" href="navbar-style.css">
     <link rel="stylesheet" href="global.css">
 </head>
 <body>
     <x-navbar-auth/> <!-- add navbar -->
-    <br><br><br>
-    <div class="auth-weapon-container">
+    <div class="archives-items">
         <?php
         //Loop through each weapon
         foreach ($weapons_array as $obj){
@@ -33,53 +32,55 @@ $components_array = json_decode(json_encode($components_array),true); //decode t
                     continue;
                 }else{
                     ?>
-                    <!-- Display weapons and add form for adding weapons to favorites -->
-                    <div>
-                        <!-- Display weapons -->
-                        <h1>{{$weapon}}</h1>
-                        <img src="https://cdn.warframestat.us/img/{{$obj->imageName}}" class="auth-weapon-image">
-                        <button><a href="/secondary/{{$weapon}}?type=Secondary">Read more</a></button>
-                        <!-- Create form to store favorites when picking one -->
-                        <form method="POST" action=" {{ route('favorites.store') }}">
-                            @csrf
-                            <input type="hidden" name="favorited_item" value="{{$weapon}}"></input>
-                            <input type="hidden" name="type" value="{{$type}}"></input>
-                            <input type="hidden" name="mastery_requirement" value="{{$obj->masteryReq}}"></input>
-                            <?php
-                            //Check to see if array entry contains "components" as there are some exceptions where it is not obtained normally (no components) e.g weapon is bought
-                            if(array_key_exists("components", $components_array[$foreach_count])){
-                                ?>
-                                <input type="hidden" name="component_count" value='{{count($components_array[$foreach_count]["components"])-1}}'></input>
+                    <!-- Display weapons -->
+                    <div class="item-container">
+                        <h3 class="item-title">{{$weapon}}</h3>
+                        <img src="https://cdn.warframestat.us/img/{{$obj->imageName}}">
+                        <div class="archives-buttons">
+                            <a class="primary-button" href="/secondary/{{$weapon}}?type=Secondary">Read more</a>
+                            <!-- Create form to store favorites when picking one -->
+                            <form method="POST" action=" {{ route('favorites.store') }}" class="archives-buttons">
+                                @csrf
+                                <input type="hidden" name="favorited_item" value="{{$weapon}}"></input>
+                                <input type="hidden" name="type" value="{{$type}}"></input>
+                                <input type="hidden" name="mastery_requirement" value="{{$obj->masteryReq}}"></input>
                                 <?php
-                                //Create a for loop to run for each component the weapon requires, we do -1 as count() starts from 1 while $i starts from 0
-                                for($i=0; $i <= count($components_array[$foreach_count]["components"])-1; $i++ ){
-
-                                    /*  BREAKDOWN OF $components_array[$foreach_count]["components"][$i]["attributename"] - This is complicated due to the Warframe API:
-                                        //$components_array --> the decoded array with no object references
-                                        //[$foreach_count] --> used to reference the place in the array we are in the foreach loop
-                                        //["components"] --> used to reference "components", where the data we need is
-                                        //[$i] --> using the for loop count $i we run this for each entry in "components" as some items have less than 5
-                                        //"attributename" --> simple reference the attribute
-                                    END OF BREAKDOWN */
-
-                                    //Assign Components variables for form inputs
-                                    $component_name = $components_array[$foreach_count]["components"][$i]["name"];
-                                    $component_image_name = $components_array[$foreach_count]["components"][$i]["imageName"];
-                                    $component_amount = $components_array[$foreach_count]["components"][$i]["itemCount"];
-                                    // echo $component_name . " " . $component_image_name . " " . $component_amount . "<br><br>"; DEBUG COMMAND
+                                //Check to see if array entry contains "components" as there are some exceptions where it is not obtained normally (no components) e.g weapon is bought
+                                if(array_key_exists("components", $components_array[$foreach_count])){
                                     ?>
-                                    <!-- //Create input for each component to send to database table as some Warframes have different numbers of components --> 
-                                    <input type="hidden" name="component_name_{{$i}}" value="{{$component_name}}"></input>
-                                    <input type="hidden" name="component_image_name_{{$i}}" value="{{$component_image_name}}"></input>
-                                    <input type="hidden" name="component_amount_{{$i}}" value="{{$component_amount}}"></input>
+                                    <!-- create the count of all components in hidden input to send to backend for database entry -->
+                                    <input type="hidden" name="component_count" value='{{count($components_array[$foreach_count]["components"])-1}}'></input>
                                     <?php
+                                    //Create a for loop to run for each component the weapon requires, we do -1 as count() starts from 1 while $i starts from 0
+                                    for($i=0; $i <= count($components_array[$foreach_count]["components"])-1; $i++ ){
+
+                                        /*  BREAKDOWN OF $components_array[$foreach_count]["components"][$i]["attributename"] - This is complicated due to the Warframe API:
+                                            //$components_array --> the decoded array with no object references
+                                            //[$foreach_count] --> used to reference the place in the array we are in the foreach loop
+                                            //["components"] --> used to reference "components", where the data we need is
+                                            //[$i] --> using the for loop count $i we run this for each entry in "components" as some items have less than 5
+                                            //"attributename" --> simple reference the attribute
+                                        END OF BREAKDOWN */
+
+                                        //Assign Components variables for form inputs
+                                        $component_name = $components_array[$foreach_count]["components"][$i]["name"];
+                                        $component_image_name = $components_array[$foreach_count]["components"][$i]["imageName"];
+                                        $component_amount = $components_array[$foreach_count]["components"][$i]["itemCount"];
+                                        // echo $component_name . " " . $component_image_name . " " . $component_amount . "<br><br>"; DEBUG COMMAND
+                                        ?>
+                                        <!-- //Create input for each component to send to database table as some Warframes have different numbers of components --> 
+                                        <input type="hidden" name="component_name_{{$i}}" value="{{$component_name}}"></input>
+                                        <input type="hidden" name="component_image_name_{{$i}}" value="{{$component_image_name}}"></input>
+                                        <input type="hidden" name="component_amount_{{$i}}" value="{{$component_amount}}"></input>
+                                        <?php
+                                    }
+                                }else{
+                                    echo "There are no Components"; //Create exception for weapons which don't require components
                                 }
-                            }else{
-                                echo "There are no Components"; //Create exception for weapons which don't require components
-                            }
-                            ?>
-                            <input type="submit" value="Favorite"></input>
-                        </form>
+                                ?>
+                                <button type="submit" class="primary-button">Favorite</button>
+                            </form>
+                        </div>
                     </div>
                     <?php
                     $foreach_count++; //Increase count every time foreach loop runs
